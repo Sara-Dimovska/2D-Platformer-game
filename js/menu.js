@@ -1,12 +1,16 @@
 var menuState = {
     create: function() {
         this.game.world.setBounds(0, 0, this.game.width, this.game.height);
-        // dodadi pozadina
         game.add.image(0, 0, 'bg');
-        // prikazi ime na igra
-        game.add.sprite(game.world.centerX, 200, 'apple');
-        game.add.sprite(game.world.centerX + 40, 200, 'krusa');
-        game.add.sprite(game.world.centerX + 80, 200, 'banana');
+        var jabolka = game.add.sprite(game.world.centerX, 200, 'apple');
+        var krusa =  game.add.sprite(game.world.centerX + 80, 200, 'krusa');
+        var banana = game.add.sprite(game.world.centerX + 160, 200, 'banana');
+        jabolka.height *= 2;
+        jabolka.width *= 2; 
+        krusa.height *= 2;
+        krusa.width *= 2;
+        banana.height *= 2;
+        banana.width *= 2;
         var igrac = game.add.sprite(game.world.centerX, -50, 'igrac');      
         igrac.anchor.setTo(0.5, 0.5);
         igrac.height *= 2;

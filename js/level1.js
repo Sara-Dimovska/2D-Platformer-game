@@ -29,8 +29,8 @@ var playStateLvl1 = {
         this.startingLocation = this.map.objects.PlayerLocations[0];
         this.endingLocation = this.map.objects.PlayerLocations[1];
         this.winZone = new Phaser.Rectangle(this.endingLocation.x, this.endingLocation.y, this.endingLocation.width, this.endingLocation.height);
-    
-        this.appleLayer = this.map.objects.apples;        
+
+        this.appleLayer = this.map.objects.apples;
         //apples vkupno 75
         apples = game.add.group();
         apples.enableBody = true;
@@ -57,7 +57,7 @@ var playStateLvl1 = {
 
 
     },
-    create: function () { 
+    create: function () {
         this.cursor = game.input.keyboard.createCursorKeys(); // za strelki
 
         this.wasd = {                                         // za wasd kopcinja
@@ -70,14 +70,14 @@ var playStateLvl1 = {
 
         // igrac
         this.igrac = game.add.sprite(this.startingLocation.x, this.startingLocation.y, 'igrac');
-        this.igrac.animations.add('desno', [0,13,3,0], 20, false);
-        this.igrac.animations.add('levo', [12,2,9,12], 20, false);
-        this.igrac.animations.add('kraj',[1,4,9,10],10,true);
+        this.igrac.animations.add('desno', [0, 13, 3, 0], 20, false);
+        this.igrac.animations.add('levo', [12, 2, 9, 12], 20, false);
+        this.igrac.animations.add('kraj', [1, 4, 9, 10], 10, true);
         game.physics.arcade.enable(this.igrac);
         this.igrac.body.gravity.y = 500;
-        
+
         // Prikazi rezultat
-        this.jabolkaLabela = game.add.sprite(50,10, 'apple');
+        this.jabolkaLabela = game.add.sprite(50, 10, 'apple');
         this.rezultatLabela = game.add.text(90, 16, '0', {
             font: '30px "Arial Black", Gadget, sans-serif',
             fill: 'rgb(237, 0, 0)',
@@ -86,7 +86,7 @@ var playStateLvl1 = {
         this.rezultatLabela.fixedToCamera = true;
         this.jabolkaLabela.fixedToCamera = true;
 
-        game.global.rezultat = 0;
+        game.global.jabolki = 0;
 
         // audio
         this.skokaZvuk = game.add.audio('skoka');
@@ -124,14 +124,14 @@ var playStateLvl1 = {
         game.physics.arcade.overlap(this.igrac, this.neprijateli, this.odzemiZivot, null, this);
         game.physics.arcade.collide(laseri, this.layer, this.laserVoZid, null, this);
         game.physics.arcade.overlap(this.neprijateli, laseri, this.ubijNeprijatel, null, this);
-        game.physics.arcade.collide(this.igrac, this.spikes, this.igracUmira, null,this);
+        game.physics.arcade.collide(this.igrac, this.spikes, this.igracUmira, null, this);
 
-        if(this.winZone.contains(this.igrac.x + this.igrac.width/2,this.igrac.y + this.igrac.height/2)){
+        if (this.winZone.contains(this.igrac.x + this.igrac.width / 2, this.igrac.y + this.igrac.height / 2)) {
             this.igrac.animations.play('kraj');
-            game.time.events.add(Phaser.Timer.SECOND * 2, 
+            game.time.events.add(Phaser.Timer.SECOND * 2,
                 function () {
-                game.state.start('menu');
-            }, this);        
+                    game.state.start('menu');
+                }, this);
         }
     },
     /*
@@ -146,7 +146,7 @@ var playStateLvl1 = {
         laser.kill();
     },
     igracDvizenje: function () {
-        if (this.cursor.left.isDown || this.wasd.left.isDown) {                 
+        if (this.cursor.left.isDown || this.wasd.left.isDown) {
             this.igrac.body.velocity.x = -300;
             this.igrac.animations.play('levo');
         }
@@ -165,10 +165,10 @@ var playStateLvl1 = {
             // treba da skoka
             this.igrac.body.velocity.y = -520;
             this.skokaZvuk.play();
-            if([12,2,9,12,5,15].includes(this.igrac.frame)) // nasocen levo
+            if ([12, 2, 9, 12, 5, 15].includes(this.igrac.frame)) // nasocen levo
                 this.igrac.frame = 5;
-            else if([0,13,3,6,7,14].includes(this.igrac.frame)) // nasocen desno
-            this.igrac.frame = 7;
+            else if ([0, 13, 3, 6, 7, 14].includes(this.igrac.frame)) // nasocen desno
+                this.igrac.frame = 7;
         }
         if (laseriTriger.isDown) {
             this.pukajFunkcija();
@@ -178,12 +178,12 @@ var playStateLvl1 = {
         if (game.time.now > laserVreme) {
             var laser = laseri.getFirstExists(false);
             if (laser) {
-                if ([12,2,9,12,5,15].includes(this.igrac.frame)) { // igrac nasocen levo
+                if ([12, 2, 9, 12, 5, 15].includes(this.igrac.frame)) { // igrac nasocen levo
                     this.igrac.frame = 15;
                     laser.reset(this.igrac.x + 5, this.igrac.y + 40);
                     laser.body.velocity.x = - 400;
                 }
-                else if ([0,13,3,6,7,14].includes(this.igrac.frame)) {// igrac nasocen desno
+                else if ([0, 13, 3, 6, 7, 14].includes(this.igrac.frame)) {// igrac nasocen desno
                     this.igrac.frame = 14;
                     laser.reset(this.igrac.x + 70, this.igrac.y + 40);
                     laser.body.velocity.x = 400;
@@ -212,8 +212,8 @@ var playStateLvl1 = {
     zemiOvosje: function (igrac, ovosje) {
         this.zemaOvosjeZvuk.play();
         // obnovi rezultat
-        game.global.rezultat += 5;
-        this.rezultatLabela.text = game.global.rezultat;
+        game.global.jabolki += 1;
+        this.rezultatLabela.text = game.global.jabolki;
         // napravi nevidliva 
         ovosje.scale.setTo(0, 0);
         // Skaliraj  za vremeod 300ms
