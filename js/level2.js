@@ -9,36 +9,40 @@ var laseriTriger;
 var krusi;
 
 var playStateLvl2 = {
-    sozdadiSvet: function() {
-
+    sozdadiSvet: function () {
+        this.game.world.setBounds(0, 0, this.game.width, this.game.height);
         this.map = game.add.tilemap('mapa2');
         this.map.addTilesetImage('sheet2');
-        // this.map.addTilesetImage('bg-img');
+        this.map.addTilesetImage('bg-img');
         this.map.addTilesetImage('enemy_fruit');
         this.map.addTilesetImage('spike-sheet');
         //create layers
         this.backgroundlayer = this.map.createLayer('Background');
-        // this.clouds1 = this.map.createLayer('Clouds1');
-        //  this.clouds2 = this.map.createLayer('Clouds2');
-        this.layer = this.map.createLayer('Tile Layer 1'); // Platform
+        this.layer = this.map.createLayer('Platforms'); // Platform
+        this.clouds1 = this.map.createLayer('Clouds1');
+        this.clouds2 = this.map.createLayer('Clouds2');
         this.spikes = this.map.createLayer('spikes');
+        this.spikes2 = this.map.createLayer('spikes2');
         this.backgroundlayer.resizeWorld();
-
-        this.map.setCollisionBetween(1, 999, true, 'Tile Layer 1');
+        // collisions
+        this.map.setCollisionBetween(1, 999, true, 'Platforms');
         this.map.setCollisionBetween(1, 999, true, 'spikes');
+        this.map.setCollisionBetween(1, 999, true, 'spikes2');
         // objects
-        this.startingLocation = this.map.objects.PlayerLocations[0];
-        this.endingLocation = this.map.objects.PlayerLocations[1];
+        this.startingLocation = this.map.objects.Locations[0];
+        this.endingLocation = this.map.objects.Locations[1];
         this.winZone = new Phaser.Rectangle(this.endingLocation.x, this.endingLocation.y, this.endingLocation.width, this.endingLocation.height);
 
         this.krusaLayer = this.map.objects.krusi;
         //apples vkupno 75
         krusi = game.add.group();
-        apples.enableBody = true;
-        this.krusaLayer.forEach(object = > {
+        krusi.enableBody = true;
+        this.krusaLayer.forEach(object => {
             let obj = krusi.create(object.x, object.y, 'krusa');
-        obj.anchor.setTo(0.5, 1);
-    });
+            obj.anchor.setTo(0.5, 1);
+        });
+
+
         this.neprijateli = game.add.group();
         this.neprijateli.enableBody = true;
         // Kreiraj "n" neprijateli od istata slika
@@ -57,7 +61,7 @@ var playStateLvl2 = {
 
 
     },
-    create: function(){ // rezervirana Phaser funkcija
+    create: function () { // rezervirana Phaser funkcija
         this.cursor = game.input.keyboard.createCursorKeys(); // za strelki
 
         this.wasd = {                                         // za wasd kopcinja
@@ -135,7 +139,7 @@ var playStateLvl2 = {
                     game.state.start('menu');
                 }, this);
         }
-        if(game.global.krusi == 20){
+        if (game.global.krusi == 20) {
             zivoti.length = 0;
             game.state.start('level3');
         }

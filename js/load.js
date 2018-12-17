@@ -12,17 +12,18 @@ var loadState = {
         game.load.setPreloadSprite(progress);
 
         // izvleci gi site potrebni resursi za igrata
-        //game.load.tilemap('map1','resursi/tilemap.json',null,Phaser.Tilemap.TILED_JSON);
-        game.load.tilemap('mapa1','resursi/maps/map1.json',null,Phaser.Tilemap.TILED_JSON);
         // level 1 platform
+        game.load.tilemap('mapa1','resursi/maps/map1.json',null,Phaser.Tilemap.TILED_JSON);
         game.load.image('sheet1','resursi/maps/sheet1.png');
-        game.load.image('sheet1','resursi/maps/sheet2.png');
         game.load.image('bg-img','resursi/maps/bg-img.png');
         game.load.image('enemy_fruit','resursi/maps/enemy_fruit.png');  
         game.load.image('spike-sheet','resursi/maps/spike-sheet.png'); 
         game.load.image('apple','resursi/maps/apple.png');
-        // 
+        // level 2 platform
+        game.load.tilemap('mapa2','resursi/maps/map2.json',null,Phaser.Tilemap.TILED_JSON);
         game.load.image('krusa','resursi/maps/krusa.png');
+        game.load.image('sheet2','resursi/maps/sheet2.png');
+        // level 3 assets ADD HERE!
         game.load.image('banana','resursi/maps/banana.png');
         
         game.load.spritesheet('igrac', 'resursi/igrac/spritesheet.png',98,110);

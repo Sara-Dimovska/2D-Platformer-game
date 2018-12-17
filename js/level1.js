@@ -133,7 +133,7 @@ var playStateLvl1 = {
                     game.state.start('menu');
                 }, this);
         }
-        if( game.global.jabolki == 10){
+        if( game.global.jabolki == 1){
             zivoti.length = 0;
             game.state.start('level2');
         }
