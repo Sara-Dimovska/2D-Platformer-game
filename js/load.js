@@ -15,7 +15,8 @@ var loadState = {
         //game.load.tilemap('map1','resursi/tilemap.json',null,Phaser.Tilemap.TILED_JSON);
         game.load.tilemap('mapa1','resursi/maps/map1.json',null,Phaser.Tilemap.TILED_JSON);
         // level 1 platform
-        game.load.image('sheet1','resursi/maps/sheet1.png');  
+        game.load.image('sheet1','resursi/maps/sheet1.png');
+        game.load.image('sheet1','resursi/maps/sheet2.png');
         game.load.image('bg-img','resursi/maps/bg-img.png');
         game.load.image('enemy_fruit','resursi/maps/enemy_fruit.png');  
         game.load.image('spike-sheet','resursi/maps/spike-sheet.png'); 

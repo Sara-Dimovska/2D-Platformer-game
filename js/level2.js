@@ -6,19 +6,20 @@ var zivoti = [];
 var laserVreme = 0;
 var laseri;
 var laseriTriger;
-var apples;
+var krusi;
 
-var playStateLvl1 = {
-    sozdadiSvet: function () {
-        this.map = game.add.tilemap('mapa1');
-        this.map.addTilesetImage('sheet1');
-        this.map.addTilesetImage('bg-img');
+var playStateLvl2 = {
+    sozdadiSvet: function() {
+
+        this.map = game.add.tilemap('mapa2');
+        this.map.addTilesetImage('sheet2');
+        // this.map.addTilesetImage('bg-img');
         this.map.addTilesetImage('enemy_fruit');
         this.map.addTilesetImage('spike-sheet');
         //create layers
         this.backgroundlayer = this.map.createLayer('Background');
-        this.clouds1 = this.map.createLayer('Clouds1');
-        this.clouds2 = this.map.createLayer('Clouds2');
+        // this.clouds1 = this.map.createLayer('Clouds1');
+        //  this.clouds2 = this.map.createLayer('Clouds2');
         this.layer = this.map.createLayer('Tile Layer 1'); // Platform
         this.spikes = this.map.createLayer('spikes');
         this.backgroundlayer.resizeWorld();
@@ -30,15 +31,14 @@ var playStateLvl1 = {
         this.endingLocation = this.map.objects.PlayerLocations[1];
         this.winZone = new Phaser.Rectangle(this.endingLocation.x, this.endingLocation.y, this.endingLocation.width, this.endingLocation.height);
 
-        this.appleLayer = this.map.objects.apples;
+        this.krusaLayer = this.map.objects.krusi;
         //apples vkupno 75
-        apples = game.add.group();
+        krusi = game.add.group();
         apples.enableBody = true;
-        this.appleLayer.forEach(object => {
-            let obj = apples.create(object.x, object.y, 'apple');
-            obj.anchor.setTo(0.5, 1);
-        });
-
+        this.krusaLayer.forEach(object = > {
+            let obj = krusi.create(object.x, object.y, 'krusa');
+        obj.anchor.setTo(0.5, 1);
+    });
         this.neprijateli = game.add.group();
         this.neprijateli.enableBody = true;
         // Kreiraj "n" neprijateli od istata slika
@@ -57,7 +57,7 @@ var playStateLvl1 = {
 
 
     },
-    create: function () {
+    create: function(){ // rezervirana Phaser funkcija
         this.cursor = game.input.keyboard.createCursorKeys(); // za strelki
 
         this.wasd = {                                         // za wasd kopcinja
@@ -76,17 +76,18 @@ var playStateLvl1 = {
         game.physics.arcade.enable(this.igrac);
         this.igrac.body.gravity.y = 500;
 
+
         // Prikazi rezultat
-        this.jabolkaLabela = game.add.sprite(50, 10, 'apple');
+        this.krusaLabela = game.add.sprite(50, 10, 'krusa');
         this.rezultatLabela = game.add.text(90, 16, '0', {
             font: '30px "Arial Black", Gadget, sans-serif',
             fill: 'rgb(237, 0, 0)',
             fontWeight: 'bold'
         });
         this.rezultatLabela.fixedToCamera = true;
-        this.jabolkaLabela.fixedToCamera = true;
+        this.krusaLabela.fixedToCamera = true;
 
-        game.global.jabolki = 0;
+        game.global.krusi = 0;
 
         // audio
         this.skokaZvuk = game.add.audio('skoka');
@@ -107,6 +108,7 @@ var playStateLvl1 = {
         laseri.setAll('checkWorldBounds', true);
         laseri.setAll('outOFBoundsKill', true);
         laseriTriger = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+
     },
 
     update: function () { // rezervirana Phaser funkcija
@@ -119,7 +121,7 @@ var playStateLvl1 = {
             this.igracUmira();
         }
 
-        game.physics.arcade.overlap(this.igrac, apples, this.zemiOvosje, null, this);
+        game.physics.arcade.overlap(this.igrac, krusi, this.zemiOvosje, null, this);
         game.physics.arcade.collide(this.neprijateli, this.layer);
         game.physics.arcade.overlap(this.igrac, this.neprijateli, this.odzemiZivot, null, this);
         game.physics.arcade.collide(laseri, this.layer, this.laserVoZid, null, this);
@@ -133,9 +135,9 @@ var playStateLvl1 = {
                     game.state.start('menu');
                 }, this);
         }
-        if( game.global.jabolki == 10){
+        if(game.global.krusi == 20){
             zivoti.length = 0;
-            game.state.start('level2');
+            game.state.start('level3');
         }
     },
     /*
@@ -158,7 +160,7 @@ var playStateLvl1 = {
             this.igrac.body.velocity.x = 300;
             this.igrac.animations.play('desno');
         }
-        else if (this.cursor.down.isDown || this.wasd.down.isDown) {  // zabrzaj pagjanje za nadolu           
+        else if (this.cursor.down.isDown || this.wasd.down.isDown) {  // zabrzaj pagjanje za nadolu
             this.igrac.body.velocity.y = 300;
         }
         else { // nema promeni
@@ -216,9 +218,9 @@ var playStateLvl1 = {
     zemiOvosje: function (igrac, ovosje) {
         this.zemaOvosjeZvuk.play();
         // obnovi rezultat
-        game.global.jabolki += 1;
-        this.rezultatLabela.text = game.global.jabolki;
-        // napravi nevidliva 
+        game.global.krusi += 1;
+        this.rezultatLabela.text = game.global.krusi;
+        // napravi nevidliva
         ovosje.scale.setTo(0, 0);
         // Skaliraj  za vremeod 300ms
         game.add.tween(ovosje.scale).to({ x: 1, y: 1 }, 300).start();
@@ -240,3 +242,6 @@ var playStateLvl1 = {
         neprijatel.body.bounce.set(1);
     }
 };
+
+
+
