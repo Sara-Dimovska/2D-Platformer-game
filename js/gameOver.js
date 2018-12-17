@@ -1,12 +1,13 @@
 var gameOverState = {
     create: function() {
-        game.add.image(0, 0, 'bg');
+        this.game.world.setBounds(0, 0, this.game.width, this.game.height);
+        //game.add.image(0, 0, 'bg');
         var text = game.add.text(game.world.centerX, 100, 'Крај на играта',
                                       { font: '100px Arial', fill: '#ffffff' });      
-        text.anchor.setTo(0.5, 0.5);      
+        text.anchor.setTo(0.5, 0.5);  
         // game.add.tween(text).to({y:300},1000).easing(Phaser.Easing.Bounce.Out).start();
         
-        /*
+        
         // localStorage.setItem('name', value)
         if (!localStorage.getItem('najdobriPoeni')) {     
             localStorage.setItem('najdobriPoeni', 0);
@@ -22,10 +23,7 @@ var gameOverState = {
         var scoreLabelа = game.add.text(game.world.centerX, game.world.centerY, text,
                                        { font: '25px Arial', fill: '#ffffff', align: 'center' });
         scoreLabelа.anchor.setTo(0.5, 0.5);
-        
-        
-
-       */
+       
         var startuvaj = game.add.text(game.world.centerX, game.world.centerY + 60,
                                        'Започнете одново со Enter или клик',
                                        { font: '25px Arial', fill: '#ffffff' });
@@ -36,8 +34,7 @@ var gameOverState = {
         var key = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
         key.onDown.addOnce(this.start, this);
         game.input.onDown.add(this.start,this);
-        
-        
+         
     },
     start: function() {
         game.global.brojZivoti = 5;

@@ -1,5 +1,6 @@
 var menuState = {
     create: function() {
+        this.game.world.setBounds(0, 0, this.game.width, this.game.height);
         // dodadi pozadina
         game.add.image(0, 0, 'bg');
         // prikazi ime na igra
@@ -9,7 +10,7 @@ var menuState = {
         var igrac = game.add.sprite(game.world.centerX, -50, 'igrac');      
         igrac.anchor.setTo(0.5, 0.5);
         igrac.height *= 2;
-        igrac.width *= 2;      
+        igrac.width *= 2;    
         /* tweens, svojstvo za vizuelni efekti
          go pridvizuva naslovot do 300px za vreme  od 1s(1000ms) 
          default e konstantna brzina, easing - funkcija za dopolnitelni efekti 

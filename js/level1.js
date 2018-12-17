@@ -22,6 +22,7 @@ var playStateLvl1 = {
         this.layer = this.map.createLayer('Tile Layer 1'); // Platform
         this.spikes = this.map.createLayer('spikes');
         this.backgroundlayer.resizeWorld();
+
         this.map.setCollisionBetween(1, 999, true, 'Tile Layer 1');
         this.map.setCollisionBetween(1, 999, true, 'spikes');
         // objects
@@ -206,7 +207,7 @@ var playStateLvl1 = {
     igracUmira: function () {
         this.mrtovIgrac.play();
         zivoti.length = 0;
-        game.state.start('menu');
+        game.state.start('gameOver');
     },
     zemiOvosje: function (igrac, ovosje) {
         this.zemaOvosjeZvuk.play();
