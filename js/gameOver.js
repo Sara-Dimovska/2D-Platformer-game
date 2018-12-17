@@ -1,15 +1,12 @@
 var gameOverState = {
     create: function() {
-        
-        // game.add.image(0, 0, 'pozadina1');
-        
-        var naslov = game.add.text(game.world.centerX, -50, 'Крај на играта',
+        game.add.image(0, 0, 'bg');
+        var text = game.add.text(game.world.centerX, 100, 'Крај на играта',
                                       { font: '100px Arial', fill: '#ffffff' });      
-        naslov.anchor.setTo(0.5, 0.5);      
-        game.add.tween(naslov).to({y:300},1000).easing(Phaser.Easing.Bounce.Out).start();
+        text.anchor.setTo(0.5, 0.5);      
+        // game.add.tween(text).to({y:300},1000).easing(Phaser.Easing.Bounce.Out).start();
         
-        
-        
+        /*
         // localStorage.setItem('name', value)
         if (!localStorage.getItem('najdobriPoeni')) {     
             localStorage.setItem('najdobriPoeni', 0);
@@ -28,7 +25,7 @@ var gameOverState = {
         
         
 
-       
+       */
         var startuvaj = game.add.text(game.world.centerX, game.world.centerY + 60,
                                        'Започнете одново со Enter или клик',
                                        { font: '25px Arial', fill: '#ffffff' });

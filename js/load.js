@@ -19,9 +19,11 @@ var loadState = {
         game.load.image('bg-img','resursi/maps/bg-img.png');
         game.load.image('enemy_fruit','resursi/maps/enemy_fruit.png');  
         game.load.image('spike-sheet','resursi/maps/spike-sheet.png'); 
-        game.load.image('fruit','resursi/maps/apple.png');  
-
-
+        game.load.image('apple','resursi/maps/apple.png');
+        // 
+        game.load.image('krusa','resursi/maps/krusa.png');
+        game.load.image('banana','resursi/maps/banana.png');
+        
         game.load.spritesheet('igrac', 'resursi/igrac/spritesheet.png',98,110);
         game.load.image('neprijatel', 'resursi/neprijatel.png');
         game.load.image('zivot','resursi//igrac/zivot.png');
@@ -30,14 +32,15 @@ var loadState = {
         game.load.image('wasd','resursi/wasd.png');
         game.load.image('enter','resursi/enter.png');
         game.load.image('space','resursi/space.png');
+        game.load.image('bg','resursi/pozadina.png');
         game.load.audio('skoka', ['resursi/audio/skoka.ogg', 'resursi/audio/skoka.mp3']);
-        game.load.audio('zemaParicka', ['resursi/audio/zemaParicka.ogg', 'resursi/audio/zemaParicka.mp3']);
+        game.load.audio('zema', ['resursi/audio/zemaOvosje.ogg', 'resursi/audio/zemaOvosje.mp3']);
         game.load.audio('mrtovNeprijatel', ['resursi/audio/mrtovNeprijatel.ogg', 'resursi/audio/mrtovNeprijatel.mp3']);
         game.load.audio('mrtovIgrac', ['resursi/audio/mrtovIgrac.ogg', 'resursi/audio/mrtovIgrac.mp3']);
 
     },
     create: function() {
         // startuvaj sledna sostojba
-        game.state.start('level1');
+        game.state.start('menu');
     }
 };

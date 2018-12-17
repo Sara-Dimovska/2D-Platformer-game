@@ -1,18 +1,20 @@
 var menuState = {
     create: function() {
-
-
         // dodadi pozadina
-        game.add.image(0, 0, 'pozadina1');
+        game.add.image(0, 0, 'bg');
         // prikazi ime na igra
-        var naslov = game.add.text(game.world.centerX, -50, 'Собирај парички',
-                                   { font: '80px Arial', fill: '#ffffff' });      
-        naslov.anchor.setTo(0.5, 0.5);      
+        game.add.sprite(game.world.centerX, 200, 'apple');
+        game.add.sprite(game.world.centerX + 40, 200, 'krusa');
+        game.add.sprite(game.world.centerX + 80, 200, 'banana');
+        var igrac = game.add.sprite(game.world.centerX, -50, 'igrac');      
+        igrac.anchor.setTo(0.5, 0.5);
+        igrac.height *= 2;
+        igrac.width *= 2;      
         /* tweens, svojstvo za vizuelni efekti
          go pridvizuva naslovot do 300px za vreme  od 1s(1000ms) 
          default e konstantna brzina, easing - funkcija za dopolnitelni efekti 
         */
-        game.add.tween(naslov).to({y:200},1000).easing(Phaser.Easing.Bounce.Out).start();
+        game.add.tween(igrac).to({y:700},1000).easing(Phaser.Easing.Bounce.Out).start();
 
         game.add.text(game.world.centerX-280, game.world.centerY -110,
                       'движење на играч: ',
