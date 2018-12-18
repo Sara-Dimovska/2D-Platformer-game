@@ -11,7 +11,7 @@ var krusi;
 var playStateLvl2 = {
     sozdadiSvet: function () {
         this.game.world.setBounds(0, 0, this.game.width, this.game.height);
-        this.map = game.add.tilemap('mapa2');
+        this.map = game.add.tilemap('Mapa2');
         this.map.addTilesetImage('sheet2');
         this.map.addTilesetImage('bg-img');
         this.map.addTilesetImage('enemy_fruit');
@@ -19,8 +19,8 @@ var playStateLvl2 = {
         //create layers
         this.backgroundlayer = this.map.createLayer('Background');
         this.layer = this.map.createLayer('Platforms'); // Platform
-        this.clouds1 = this.map.createLayer('Clouds1');
-        this.clouds2 = this.map.createLayer('Clouds2');
+        this.clouds1 = this.map.createLayer('clouds');
+        this.clouds2 = this.map.createLayer('clouds2');
         this.spikes = this.map.createLayer('spikes');
         this.spikes2 = this.map.createLayer('spikes2');
         this.backgroundlayer.resizeWorld();
@@ -139,15 +139,7 @@ var playStateLvl2 = {
                     game.state.start('menu');
                 }, this);
         }
-        if (game.global.krusi == 20) {
-            zivoti.length = 0;
-            game.state.start('level3');
-        }
     },
-    /*
-    lizgaj: function (igrac, platform) {
-        igrac.body.x += 3;
-    },*/
     ubijNeprijatel: function (neprijatel) {
         neprijatel.kill();
         this.mrtovNeprijatel.play();

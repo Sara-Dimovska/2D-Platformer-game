@@ -20,7 +20,7 @@ var loadState = {
         game.load.image('spike-sheet','resursi/maps/spike-sheet.png'); 
         game.load.image('apple','resursi/maps/apple.png');
         // level 2 platform
-        game.load.tilemap('mapa2','resursi/maps/map2.json',null,Phaser.Tilemap.TILED_JSON);
+        game.load.tilemap('Mapa2','resursi/maps/map2.json',null,Phaser.Tilemap.TILED_JSON);
         game.load.image('krusa','resursi/maps/krusa.png');
         game.load.image('sheet2','resursi/maps/sheet2.png');
         // level 3 assets ADD HERE!
@@ -43,6 +43,6 @@ var loadState = {
     },
     create: function() {
         // startuvaj sledna sostojba
-        game.state.start('menu');
+        game.state.start('level2');
     }
 };
