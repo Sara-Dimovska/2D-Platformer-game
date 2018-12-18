@@ -10,7 +10,7 @@ var apples;
 
 var playStateLvl1 = {
     sozdadiSvet: function () {
-        this.map = game.add.tilemap('mapa1');
+        this.map = game.add.tilemap('map1');
         this.map.addTilesetImage('sheet1');
         this.map.addTilesetImage('bg-img');
         this.map.addTilesetImage('enemy_fruit');
@@ -74,7 +74,7 @@ var playStateLvl1 = {
         this.igrac.animations.add('levo', [12, 2, 9, 12], 20, false);
         this.igrac.animations.add('kraj', [1, 4, 9, 10], 10, true);
         game.physics.arcade.enable(this.igrac);
-        this.igrac.body.gravity.y = 500;
+        this.igrac.body.gravity.y = 600;
 
         // Prikazi rezultat
         this.jabolkaLabela = game.add.sprite(50, 10, 'apple');
@@ -110,7 +110,7 @@ var playStateLvl1 = {
     },
 
     update: function () { // rezervirana Phaser funkcija
-        game.camera.x += 1;
+        game.camera.x += 2;
         // kje ima kolizija pomegju igracot i zidovite
         game.physics.arcade.collide(this.igrac, this.layer);
         this.igracDvizenje();
@@ -130,14 +130,11 @@ var playStateLvl1 = {
             this.igrac.animations.play('kraj');
             game.time.events.add(Phaser.Timer.SECOND * 2,
                 function () {
-                    game.state.start('menu');
+                    zivoti.length = 0;
+                    game.state.start('level2');
                 }, this);
         }
     },
-    /*
-    lizgaj: function (igrac, platform) {
-        igrac.body.x += 3;
-    },*/
     ubijNeprijatel: function (neprijatel) {
         neprijatel.kill();
         this.mrtovNeprijatel.play();
@@ -180,12 +177,12 @@ var playStateLvl1 = {
             if (laser) {
                 if ([12, 2, 9, 12, 5, 15].includes(this.igrac.frame)) { // igrac nasocen levo
                     this.igrac.frame = 15;
-                    laser.reset(this.igrac.x + 5, this.igrac.y + 40);
+                    laser.reset(this.igrac.x -10, this.igrac.y + 50);
                     laser.body.velocity.x = - 400;
                 }
                 else if ([0, 13, 3, 6, 7, 14].includes(this.igrac.frame)) {// igrac nasocen desno
                     this.igrac.frame = 14;
-                    laser.reset(this.igrac.x + 70, this.igrac.y + 40);
+                    laser.reset(this.igrac.x + 100, this.igrac.y + 50);
                     laser.body.velocity.x = 400;
                 }
                 laserVreme = game.time.now + 200;

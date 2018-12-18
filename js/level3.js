@@ -19,18 +19,18 @@ var playStateLvl3 = {
         //create layers
         this.backgroundlayer = this.map.createLayer('Background');
         this.layer = this.map.createLayer('Platforms'); // Platform
-        this.clouds1 = this.map.createLayer('Clouds1');
-        this.clouds2 = this.map.createLayer('Clouds2');
+        this.clouds1 = this.map.createLayer('clouds');
+        this.clouds2 = this.map.createLayer('clouds2');
         this.spikes = this.map.createLayer('spikes');
-        this.spikes3 = this.map.createLayer('spikes3');
+        this.spikes3 = this.map.createLayer('spikes2');
         this.backgroundlayer.resizeWorld();
         // collisions
         this.map.setCollisionBetween(1, 999, true, 'Platforms');
         this.map.setCollisionBetween(1, 999, true, 'spikes');
-        this.map.setCollisionBetween(1, 999, true, 'spikes3');
+        this.map.setCollisionBetween(1, 999, true, 'spikes2');
         // objects
-        this.startingLocation = this.map.objects.Locations[0];
-        this.endingLocation = this.map.objects.Locations[1];
+        this.startingLocation = this.map.objects.Locations[1];
+        this.endingLocation = this.map.objects.Locations[0];
         this.winZone = new Phaser.Rectangle(this.endingLocation.x, this.endingLocation.y, this.endingLocation.width, this.endingLocation.height);
 
         this.bananaLayer = this.map.objects.bananas;
@@ -39,8 +39,8 @@ var playStateLvl3 = {
         bananas.enableBody = true;
         this.bananaLayer.forEach(object => {
             let obj = bananas.create(object.x, object.y, 'banana');
-        obj.anchor.setTo(0.5, 1);
-    });
+            obj.anchor.setTo(0.5, 1);
+        });
 
 
         this.neprijateli = game.add.group();
@@ -78,14 +78,14 @@ var playStateLvl3 = {
         this.igrac.animations.add('levo', [12, 2, 9, 12], 20, false);
         this.igrac.animations.add('kraj', [1, 4, 9, 10], 10, true);
         game.physics.arcade.enable(this.igrac);
-        this.igrac.body.gravity.y = 500;
+        this.igrac.body.gravity.y = 600;
 
 
         // Prikazi rezultat
         this.bananaLabela = game.add.sprite(50, 10, 'banana');
         this.rezultatLabela = game.add.text(90, 16, '0', {
             font: '30px "Arial Black", Gadget, sans-serif',
-            fill: 'rgb(237, 0, 0)',
+            fill: 'rgb(250, 219, 61)',
             fontWeight: 'bold'
         });
         this.rezultatLabela.fixedToCamera = true;
@@ -116,9 +116,9 @@ var playStateLvl3 = {
     },
 
     update: function () { // rezervirana Phaser funkcija
-        game.camera.x += 1;
+        game.camera.x += 2;
         // kje ima kolizija pomegju igracot i zidovite
-        game.physics.arcade.collide(this.igrac, this.layer);
+        game.physics.arcade.collide(this.igrac, this.layer, this.lizgaj, null, this);
         this.igracDvizenje();
 
         if (!this.igrac.inWorld) {
@@ -136,18 +136,16 @@ var playStateLvl3 = {
             this.igrac.animations.play('kraj');
             game.time.events.add(Phaser.Timer.SECOND * 2,
                 function () {
-                    game.state.start('menu');
+                    zivoti.length = 0;
+                    game.state.start('congrats');
                 }, this);
         }
-        if (game.global.bananas == 20) {
-            zivoti.length = 0;
-            game.state.start('gameOver');
+    },
+    lizgaj: function (igrac, platform) {
+        if (!(this.winZone.contains(this.igrac.x + this.igrac.width / 2, this.igrac.y + this.igrac.height / 2))) {
+            igrac.body.x += 2;
         }
     },
-    /*
-    lizgaj: function (igrac, platform) {
-        igrac.body.x += 3;
-    },*/
     ubijNeprijatel: function (neprijatel) {
         neprijatel.kill();
         this.mrtovNeprijatel.play();
@@ -190,12 +188,12 @@ var playStateLvl3 = {
             if (laser) {
                 if ([12, 2, 9, 12, 5, 15].includes(this.igrac.frame)) { // igrac nasocen levo
                     this.igrac.frame = 15;
-                    laser.reset(this.igrac.x + 5, this.igrac.y + 40);
+                    laser.reset(this.igrac.x -10, this.igrac.y + 50);
                     laser.body.velocity.x = - 400;
                 }
                 else if ([0, 13, 3, 6, 7, 14].includes(this.igrac.frame)) {// igrac nasocen desno
                     this.igrac.frame = 14;
-                    laser.reset(this.igrac.x + 70, this.igrac.y + 40);
+                    laser.reset(this.igrac.x + 100, this.igrac.y + 50);
                     laser.body.velocity.x = 400;
                 }
                 laserVreme = game.time.now + 200;

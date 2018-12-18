@@ -13,7 +13,7 @@ var loadState = {
 
         // izvleci gi site potrebni resursi za igrata
         // level 1 platform
-        game.load.tilemap('mapa1','resursi/maps/map1.json',null,Phaser.Tilemap.TILED_JSON);
+        game.load.tilemap('map1','resursi/maps/map1.json',null,Phaser.Tilemap.TILED_JSON);
         game.load.image('sheet1','resursi/maps/sheet1.png');
         game.load.image('bg-img','resursi/maps/bg-img.png');
         game.load.image('enemy_fruit','resursi/maps/enemy_fruit.png');  
@@ -23,7 +23,7 @@ var loadState = {
         game.load.tilemap('Mapa2','resursi/maps/map2.json',null,Phaser.Tilemap.TILED_JSON);
         game.load.image('krusa','resursi/maps/krusa.png');
         game.load.image('sheet2','resursi/maps/sheet2.png');
-        // level 3 assets ADD HERE!
+        // level 3 assets
         game.load.tilemap('mapa3','resursi/maps/map3.json',null,Phaser.Tilemap.TILED_JSON);
         game.load.image('sheet3','resursi/maps/sheet3.png');
         game.load.image('banana','resursi/maps/banana.png');
@@ -45,6 +45,6 @@ var loadState = {
     },
     create: function() {
         // startuvaj sledna sostojba
-        game.state.start('level2');
+        game.state.start('level1');
     }
 };
