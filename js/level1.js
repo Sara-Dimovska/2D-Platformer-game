@@ -74,7 +74,7 @@ var playStateLvl1 = {
         this.igrac.animations.add('levo', [12, 2, 9, 12], 20, false);
         this.igrac.animations.add('kraj', [1, 4, 9, 10], 10, true);
         game.physics.arcade.enable(this.igrac);
-        this.igrac.body.gravity.y = 600;
+        this.igrac.body.gravity.y = 500;
 
         // Prikazi rezultat
         this.jabolkaLabela = game.add.sprite(50, 10, 'apple');
@@ -110,7 +110,7 @@ var playStateLvl1 = {
     },
 
     update: function () { // rezervirana Phaser funkcija
-        game.camera.x += 2;
+        game.camera.x += 1;
         // kje ima kolizija pomegju igracot i zidovite
         game.physics.arcade.collide(this.igrac, this.layer);
         this.igracDvizenje();

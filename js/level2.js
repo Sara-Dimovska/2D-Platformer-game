@@ -116,7 +116,7 @@ var playStateLvl2 = {
     },
 
     update: function () { // rezervirana Phaser funkcija
-        game.camera.x += 2;
+        game.camera.x += 1;
         // kje ima kolizija pomegju igracot i zidovite
         game.physics.arcade.collide(this.igrac, this.layer);
         this.igracDvizenje();
