@@ -13,6 +13,7 @@ game.state.add('load', loadState);
 game.state.add('menu', menuState);
 game.state.add('level1', playStateLvl1);
 game.state.add('level2', playStateLvl2);
+game.state.add('level3', playStateLvl3);
 game.state.add('gameOver', gameOverState);
 game.state.add('congrats',congratsState);
 // Pocni od 'boot' sostojba

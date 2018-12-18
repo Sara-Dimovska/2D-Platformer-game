@@ -6,41 +6,41 @@ var zivoti = [];
 var laserVreme = 0;
 var laseri;
 var laseriTriger;
-var krusi;
+var bananas;
 
-var playStateLvl2 = {
+var playStateLvl3 = {
     sozdadiSvet: function () {
         this.game.world.setBounds(0, 0, this.game.width, this.game.height);
-        this.map = game.add.tilemap('Mapa2');
-        this.map.addTilesetImage('sheet2');
+        this.map = game.add.tilemap('mapa3');
+        this.map.addTilesetImage('sheet3');
         this.map.addTilesetImage('bg-img');
         this.map.addTilesetImage('enemy_fruit');
         this.map.addTilesetImage('spike-sheet');
         //create layers
         this.backgroundlayer = this.map.createLayer('Background');
         this.layer = this.map.createLayer('Platforms'); // Platform
-        this.clouds1 = this.map.createLayer('clouds');
-        this.clouds2 = this.map.createLayer('clouds2');
+        this.clouds1 = this.map.createLayer('Clouds1');
+        this.clouds2 = this.map.createLayer('Clouds2');
         this.spikes = this.map.createLayer('spikes');
-        this.spikes2 = this.map.createLayer('spikes2');
+        this.spikes3 = this.map.createLayer('spikes3');
         this.backgroundlayer.resizeWorld();
         // collisions
         this.map.setCollisionBetween(1, 999, true, 'Platforms');
         this.map.setCollisionBetween(1, 999, true, 'spikes');
-        this.map.setCollisionBetween(1, 999, true, 'spikes2');
+        this.map.setCollisionBetween(1, 999, true, 'spikes3');
         // objects
         this.startingLocation = this.map.objects.Locations[0];
         this.endingLocation = this.map.objects.Locations[1];
         this.winZone = new Phaser.Rectangle(this.endingLocation.x, this.endingLocation.y, this.endingLocation.width, this.endingLocation.height);
 
-        this.krusaLayer = this.map.objects.krusi;
-        //krusi vkupno 75
-        krusi = game.add.group();
-        krusi.enableBody = true;
-        this.krusaLayer.forEach(object => {
-            let obj = krusi.create(object.x, object.y, 'krusa');
-            obj.anchor.setTo(0.5, 1);
-        });
+        this.bananaLayer = this.map.objects.bananas;
+        //bananas vkupno 75
+        bananas = game.add.group();
+        bananas.enableBody = true;
+        this.bananaLayer.forEach(object => {
+            let obj = bananas.create(object.x, object.y, 'banana');
+        obj.anchor.setTo(0.5, 1);
+    });
 
 
         this.neprijateli = game.add.group();
@@ -82,16 +82,16 @@ var playStateLvl2 = {
 
 
         // Prikazi rezultat
-        this.krusaLabela = game.add.sprite(50, 10, 'krusa');
+        this.bananaLabela = game.add.sprite(50, 10, 'banana');
         this.rezultatLabela = game.add.text(90, 16, '0', {
             font: '30px "Arial Black", Gadget, sans-serif',
             fill: 'rgb(237, 0, 0)',
             fontWeight: 'bold'
         });
         this.rezultatLabela.fixedToCamera = true;
-        this.krusaLabela.fixedToCamera = true;
+        this.bananaLabela.fixedToCamera = true;
 
-        game.global.krusi = 0;
+        game.global.bananas = 0;
 
         // audio
         this.skokaZvuk = game.add.audio('skoka');
@@ -125,7 +125,7 @@ var playStateLvl2 = {
             this.igracUmira();
         }
 
-        game.physics.arcade.overlap(this.igrac, krusi, this.zemiOvosje, null, this);
+        game.physics.arcade.overlap(this.igrac, bananas, this.zemiOvosje, null, this);
         game.physics.arcade.collide(this.neprijateli, this.layer);
         game.physics.arcade.overlap(this.igrac, this.neprijateli, this.odzemiZivot, null, this);
         game.physics.arcade.collide(laseri, this.layer, this.laserVoZid, null, this);
@@ -139,7 +139,15 @@ var playStateLvl2 = {
                     game.state.start('menu');
                 }, this);
         }
+        if (game.global.bananas == 20) {
+            zivoti.length = 0;
+            game.state.start('gameOver');
+        }
     },
+    /*
+    lizgaj: function (igrac, platform) {
+        igrac.body.x += 3;
+    },*/
     ubijNeprijatel: function (neprijatel) {
         neprijatel.kill();
         this.mrtovNeprijatel.play();
@@ -214,8 +222,8 @@ var playStateLvl2 = {
     zemiOvosje: function (igrac, ovosje) {
         this.zemaOvosjeZvuk.play();
         // obnovi rezultat
-        game.global.krusi += 1;
-        this.rezultatLabela.text = game.global.krusi;
+        game.global.bananas += 1;
+        this.rezultatLabela.text = game.global.bananas;
         // napravi nevidliva
         ovosje.scale.setTo(0, 0);
         // Skaliraj  za vremeod 300ms

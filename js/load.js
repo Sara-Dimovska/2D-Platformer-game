@@ -24,6 +24,8 @@ var loadState = {
         game.load.image('krusa','resursi/maps/krusa.png');
         game.load.image('sheet2','resursi/maps/sheet2.png');
         // level 3 assets ADD HERE!
+        game.load.tilemap('mapa3','resursi/maps/map3.json',null,Phaser.Tilemap.TILED_JSON);
+        game.load.image('sheet3','resursi/maps/sheet3.png');
         game.load.image('banana','resursi/maps/banana.png');
         
         game.load.spritesheet('igrac', 'resursi/igrac/spritesheet.png',98,110);
