@@ -49,7 +49,12 @@ var playStateLvl1 = {
 
         game.time.events.loop(3000, this.dodajNeprijatel, this); // na sekoi 3s dodadi neprijatel vo scenata
 
+        // reset
         game.global.brojZivoti = 5;
+        game.global.jabolki = 0;
+        game.global.krusi = 0;
+        game.global.banani = 0;
+
         for (var i = 0; i < game.global.brojZivoti; i++) {
             zivoti.push(game.add.sprite(zivotPocetokX + i * (zivotDolzina + prostor_PomegjuZivoti), zivotPocetokY, 'zivot'));
             zivoti[i].fixedToCamera = true;
@@ -86,7 +91,6 @@ var playStateLvl1 = {
         this.rezultatLabela.fixedToCamera = true;
         this.jabolkaLabela.fixedToCamera = true;
 
-        game.global.jabolki = 0;
 
         // audio
         this.skokaZvuk = game.add.audio('skoka');
@@ -128,6 +132,7 @@ var playStateLvl1 = {
 
         if (this.winZone.contains(this.igrac.x + this.igrac.width / 2, this.igrac.y + this.igrac.height / 2)) {
             this.igrac.animations.play('kraj');
+            this.neprijateli.callAll('kill');
             game.time.events.add(Phaser.Timer.SECOND * 2,
                 function () {
                     zivoti.length = 0;

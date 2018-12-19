@@ -45,6 +45,6 @@ var loadState = {
     },
     create: function() {
         // startuvaj sledna sostojba
-        game.state.start('level1');
+        game.state.start('menu');
     }
 };

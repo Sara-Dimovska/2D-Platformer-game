@@ -53,7 +53,6 @@ var playStateLvl3 = {
 
         game.time.events.loop(3000, this.dodajNeprijatel, this); // na sekoi 3s dodadi neprijatel vo scenata
 
-        game.global.brojZivoti = 5;
         for (var i = 0; i < game.global.brojZivoti; i++) {
             zivoti.push(game.add.sprite(zivotPocetokX + i * (zivotDolzina + prostor_PomegjuZivoti), zivotPocetokY, 'zivot'));
             zivoti[i].fixedToCamera = true;
@@ -90,8 +89,6 @@ var playStateLvl3 = {
         });
         this.rezultatLabela.fixedToCamera = true;
         this.bananaLabela.fixedToCamera = true;
-
-        game.global.bananas = 0;
 
         // audio
         this.skokaZvuk = game.add.audio('skoka');
@@ -134,6 +131,7 @@ var playStateLvl3 = {
 
         if (this.winZone.contains(this.igrac.x + this.igrac.width / 2, this.igrac.y + this.igrac.height / 2)) {
             this.igrac.animations.play('kraj');
+            this.neprijateli.callAll('kill');
             game.time.events.add(Phaser.Timer.SECOND * 2,
                 function () {
                     zivoti.length = 0;
@@ -220,8 +218,8 @@ var playStateLvl3 = {
     zemiOvosje: function (igrac, ovosje) {
         this.zemaOvosjeZvuk.play();
         // obnovi rezultat
-        game.global.bananas += 1;
-        this.rezultatLabela.text = game.global.bananas;
+        game.global.banani += 1;
+        this.rezultatLabela.text = game.global.banani;
         // napravi nevidliva
         ovosje.scale.setTo(0, 0);
         // Skaliraj  za vremeod 300ms
