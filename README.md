@@ -1,4 +1,4 @@
-# софтверски барања за играта:
+# Software requirements:
  - Web Server (xamp)
 
 
